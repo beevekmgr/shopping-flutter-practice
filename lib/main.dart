@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import './transaction.dart';
+import './widgets/user_transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,85 +18,31 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: "t1",
-      title: "New shoes",
-      amount: 40.01,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "t2",
-      title: "New shirts",
-      amount: 48.01,
-      date: DateTime.now(),
-    )
-  ];
+  String titleInput = "";
+  String amountInput = "";
+
+  final titleController = TextEditingController();
+  final amountControoler = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Shopping App")),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Card(
-              color: Colors.blue,
-              child: Text("Chart!"),
-              elevation: 5,
-            ),
-          ),
-          Column(
-            children: transactions.map((tx) {
-              return Card(
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                        width: 2,
-                        color: Colors.purple,
-                      )),
-                      child: Text(
-                        '\$${tx.amount}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.purple,
-                        ),
-                      ),
-                    ),
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            tx.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Text(
-                            DateFormat.yMMMd().format(tx.date),
-                            style: TextStyle(color: Colors.red),
-                          )
-                        ])
-                  ],
+        appBar: AppBar(title: Text("Shopping App")),
+        body: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  child: Card(
+                    color: Colors.blue,
+                    child: Text("Chart!"),
+                    elevation: 5,
+                  ),
                 ),
-              );
-            }).toList(),
-          ),
-          Card(
-            color: Colors.red,
-            child: Text("LIST of tx"),
-          ),
-        ],
-      ),
-    );
+                UserTranscations(),
+              ]),
+        ));
   }
 }
